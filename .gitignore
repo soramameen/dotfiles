@@ -1,0 +1,16 @@
+# Neovimの一時ファイル
+*.swp
+*.swo
+*~
+
+# LazyVimのプラグインとキャッシュ
+nvim/lazy-lock.json
+nvim/.DS_Store
+
+# 秘密情報
+*.local
+*secret*
+.env
+
+# Mac固有
+.DS_Store

@@ -13,13 +13,13 @@ mkdir -p "$BACKUP_DIR"
 backup_and_link() {
   local source="$1"
   local target="$2"
-  
+
   # 既存ファイル/ディレクトリがあればバックアップ
   if [ -e "$target" ] && [ ! -L "$target" ]; then
     echo "📦 Backing up $target"
     mv "$target" "$BACKUP_DIR/"
   fi
-  
+
   # シンボリックリンク作成
   echo "🔗 Linking $source -> $target"
   ln -sf "$source" "$target"

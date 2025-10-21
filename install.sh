@@ -28,6 +28,9 @@ backup_and_link() {
 # .zshrc
 backup_and_link "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
 
+# .configディレクトリ作成
+mkdir -p "$HOME/.config"
+
 # Neovim
 backup_and_link "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
 

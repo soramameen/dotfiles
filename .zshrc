@@ -1,6 +1,16 @@
-# ==================== Homebrew ====================
-eval "$(/opt/homebrew/bin/brew shellenv)"
+# 最初に追加
+# OS判定
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    # ==================== Mac ====================
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+    
+elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    # ==================== Linux (Ubuntu) ====================
+    # zoxideのパスを追加
+    export PATH="$HOME/.local/bin:$PATH"
+fi
 
+# ... 以下共通設定 ...
 # ==================== 開発環境 ====================
 # Ruby (rbenv)
 export PATH="$HOME/.rbenv/bin:$PATH"

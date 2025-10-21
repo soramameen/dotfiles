@@ -1,13 +1,11 @@
 # My Dotfiles 🔥
 
-かっこいいエンジニアになるための設定ファイル集
-
 ## 環境
 
 - **OS**: macOS
 - **Shell**: zsh
 - **Editor**: Neovim + LazyVim
-- **Terminal**: Alacritty (予定)
+- **Terminal**: Alacritty 
 - **Window Manager**: Magnet
 
 ## 構成
@@ -81,5 +79,3 @@ brew install --cask font-jetbrains-mono-nerd-font
 - [thoughtbot dotfiles](https://github.com/thoughtbot/dotfiles)
 
 ---
-
-**かっこいいエンジニアへの道** 🚀

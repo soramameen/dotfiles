@@ -64,7 +64,8 @@ fi
 # Starship (prompt)
 echo "📦 Installing Starship..."
 if ! command -v starship &>/dev/null; then
-  curl -sS https://starship.rs/install.sh | sh -s -- -y
+
+  curl -sS https://starship.rs/install.sh | sh -s -- --bin-dir ~/.local/bin -y
   echo "✅ Starship installed"
 else
   echo "✅ Starship already installed"

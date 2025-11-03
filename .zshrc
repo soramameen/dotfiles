@@ -71,6 +71,7 @@ alias ridge='docker compose exec api rails ridgepole:apply\[false\]'
 alias update='pnpm get-schema && pnpm codegen'
 
 # ==================== ツールエイリアス ====================
+alias g='git'
 alias n='nvim'
 alias lgit='lazygit'
 alias ldocker='lazydocker'

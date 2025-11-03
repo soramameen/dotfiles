@@ -1,3 +1,15 @@
+vim.g.vimtex_view_method = "skim"
+vim.g.vimtex_compiler_latexmk = {
+  program = "latexmk",
+  options = {
+    "-pdfdvi",
+    "-latex=platex",
+    "-synctex=1",
+    "-interaction=nonstopmode",
+    "-file-line-error",
+  },
+}
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -18,6 +30,7 @@ require("lazy").setup({
   spec = {
     -- add LazyVim and import its plugins
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
+    { import = "lazyvim.plugins.extras.lang.tex" },
     -- import/override with your plugins
     { import = "plugins" },
   },

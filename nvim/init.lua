@@ -16,6 +16,7 @@ return {
 
     -- ↓ 今回追加するRuby用の設定
     "lazyvim.plugins.extras.lang.ruby",
+    "lazyvim.plugins.extras.ai.copilot",
   },
 
   -- プラグインのデフォルト設定を上書きする場合は

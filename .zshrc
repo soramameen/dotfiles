@@ -77,9 +77,10 @@ alias ldocker='lazydocker'
 alias cat='bat -pP'
 alias l="eza --group-directories-first -1 -l -F -a -b --icons"
 alias files='yazi'
-
+alias catmd='glow'
 # ==================== ディレクトリ ====================
 alias obsidian='cd /Users/nakajimasoraera/Library/Mobile\ Documents/iCloud\~md\~obsidian/Documents/mydream'
+alias today='nvim "/Users/nakajimasoraera/Library/Mobile Documents/iCloud~md~obsidian/Documents/mydream/毎日振り返り/$(date +%Y-%m-%d).md"'
 
 # ==================== ツール初期化 ====================
 # zoxide (スマートcd)

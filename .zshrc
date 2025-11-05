@@ -127,3 +127,4 @@ compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
 source <(fzf --zsh)
 
 eval "$(sheldon source)"
+export PATH="/opt/homebrew/opt/binutils/bin:$PATH"

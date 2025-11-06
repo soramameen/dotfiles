@@ -75,10 +75,32 @@ alias g='git'
 alias n='nvim'
 alias lgit='lazygit'
 alias ldocker='lazydocker'
-alias cat='bat -pP'
 alias l="eza --group-directories-first -1 -l -F -a -b --icons"
 alias files='yazi'
-alias catmd='glow'
+alias man='tldr'
+# ==================== カスタムcat =====================
+cat() {
+  local file="$1"
+  local max_size=$((10 * 1024 * 1024))  # 10MB
+  
+  # ファイルサイズ取得（macOS用）
+  local size=$(stat -f%z "$file" 2>/dev/null)
+  
+  # ファイルが存在しないか、サイズが大きすぎたら通常のcatを使用
+  if [[ -z $size ]] || [[ $size -gt $max_size ]]; then
+    command cat "$file"
+    return
+  fi
+  
+  case "$file" in
+    *.md)
+      glow "$file"
+      ;;
+    *)
+      bat -pP "$file"
+      ;;
+  esac
+}
 # ==================== ディレクトリ ====================
 alias obsidian='cd /Users/nakajimasoraera/Library/Mobile\ Documents/iCloud\~md\~obsidian/Documents/mydream'
 alias today='nvim "/Users/nakajimasoraera/Library/Mobile Documents/iCloud~md~obsidian/Documents/mydream/毎日振り返り/$(date +%Y-%m-%d).md"'
@@ -128,3 +150,4 @@ source <(fzf --zsh)
 
 eval "$(sheldon source)"
 export PATH="/opt/homebrew/opt/binutils/bin:$PATH"
+export PATH="/opt/homebrew/opt/llvm/bin:$PATH"

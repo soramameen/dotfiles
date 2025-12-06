@@ -4,3 +4,5 @@
 	rebase = false
 [user]
 	email = sorai.s.nakajima@gmail.com
+[ghq]
+  root = /Users/nakajimasoraera/dev

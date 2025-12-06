@@ -73,11 +73,13 @@ alias update='pnpm get-schema && pnpm codegen'
 # ==================== ツールエイリアス ====================
 alias g='git'
 alias n='nvim'
-alias lgit='lazygit'
-alias ldocker='lazydocker'
+alias oldnvim="NVIM_APPNAME=oldnvim nvim"
+alias lg='lazygit'
+alias ld='lazydocker'
 alias l="eza --group-directories-first -1 -l -F -a -b --icons"
 alias files='yazi'
 alias man='tldr'
+alias t='tmux'
 # ==================== カスタムcat =====================
 cat() {
   local file="$1"
@@ -148,6 +150,8 @@ compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
 
 source <(fzf --zsh)
 
-eval "$(sheldon source)"
-export PATH="/opt/homebrew/opt/binutils/bin:$PATH"
-export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+eval "$(sheldon source)" export 
+PATH="/opt/homebrew/opt/binutils/bin:$PATH" export 
+PATH="/opt/homebrew/opt/llvm/bin:$PATH" export 
+LIBRARY_PATH="/opt/homebrew/opt/flex/lib:$LIBRARY_PATH"
+export CPATH="/opt/homebrew/opt/flex/include:$CPATH"

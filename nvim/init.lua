@@ -1,35 +1,20 @@
--- bootstrap lazy.nvim, LazyVim and your plugins
-require("config.lazy")
--- ~/.config/nvim/lua/config/lazy.lua
--- このファイルに以下の内容を貼り付けます
+-- 1. 基本設定とキーマップを読み込む
+require("config.options")
+require("config.keymaps")
 
-return {
-  -- デフォルトのカラースキームを設定 (例: tokyonight)
-  -- もしお好みがなければ、この行は削除しても構いません
-  colorscheme = "tokyonight",
+-- 2. lazy.nvim のブートストラップ（自動インストール）
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable",
+		lazypath,
+	})
+end
+vim.opt.rtp:prepend(lazypath)
 
-  -- ここに 'extras' の設定を追加します
-  extras = {
-    -- 他にもし使いたい 'extras' があればここに追加します
-    -- (例: "lazyvim.plugins.extras.lang.typescript")
-    -- (例: "lazyvim.plugins.extras.lang.json")
-
-    -- ↓ 今回追加するRuby用の設定
-    "lazyvim.plugins.extras.lang.ruby",
-    "lazyvim.plugins.extras.ai.copilot",
-  },
-
-  -- プラグインのデフォルト設定を上書きする場合は
-  -- 以下のように `plugins` テーブルを使います (今回は不要です)
-  -- plugins = {
-  --   {
-  --     "folke/tokyonight.nvim",
-  --     lazy = false,
-  --     priority = 1000,
-  --     opts = {},
-  --   },
-  -- },
-
-  -- 必要に応じて他のLazyVimオプションを設定できます
-  -- (例: ui.border = "rounded",)
-}
+-- 3. プラグインのセットアップ (lua/plugins/init.lua を読み込む)
+require("lazy").setup("plugins")

@@ -29,3 +29,5 @@ keymap.set("n", "<Right>", ":vertical resize +2<CR>", { desc = "Increase window 
 
 -- AI用
 vim.keymap.set('v','<leader>g', ':G ', { desc = '選択範囲をAIに聞く'})
+
+vim.keymap.set('n','<leader>d', ':Doc ', { desc = 'errorをAIに聞く'})

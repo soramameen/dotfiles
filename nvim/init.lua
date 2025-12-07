@@ -1,7 +1,6 @@
--- 1. 基本設定とキーマップを読み込む
 require("config.options")
 require("config.keymaps")
-
+require("config.ai")
 -- 2. lazy.nvim のブートストラップ（自動インストール）
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -18,3 +17,5 @@ vim.opt.rtp:prepend(lazypath)
 
 -- 3. プラグインのセットアップ (lua/plugins/init.lua を読み込む)
 require("lazy").setup("plugins")
+
+

@@ -80,6 +80,8 @@ alias l="eza --group-directories-first -1 -l -F -a -b --icons"
 alias files='yazi'
 alias man='tldr'
 alias t='tmux'
+alias web='open -a "Zen"'
+alias search='web "https://www.google.com/search?q=$1"'
 # ==================== カスタムcat =====================
 cat() {
   local file="$1"
@@ -155,3 +157,4 @@ PATH="/opt/homebrew/opt/binutils/bin:$PATH" export
 PATH="/opt/homebrew/opt/llvm/bin:$PATH" export 
 LIBRARY_PATH="/opt/homebrew/opt/flex/lib:$LIBRARY_PATH"
 export CPATH="/opt/homebrew/opt/flex/include:$CPATH"
+

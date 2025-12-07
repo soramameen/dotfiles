@@ -26,3 +26,6 @@ keymap.set("n", "<Up>", ":resize +2<CR>", { desc = "Increase window height" })
 keymap.set("n", "<Down>", ":resize -2<CR>", { desc = "Decrease window height" })
 keymap.set("n", "<Left>", ":vertical resize -2<CR>", { desc = "Decrease window width" })
 keymap.set("n", "<Right>", ":vertical resize +2<CR>", { desc = "Increase window width" })
+
+-- AI用
+vim.keymap.set('v','<leader>g', ':G ', { desc = '選択範囲をAIに聞く'})

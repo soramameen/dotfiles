@@ -17,6 +17,8 @@ return {
       require("nvim-treesitter.configs").setup({
         ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown" },
         auto_install = true,
+        --- latexだけバージョンが足りないので除外
+        ignore_install = {"latex"},
         highlight = { enable = true },
       })
     end,

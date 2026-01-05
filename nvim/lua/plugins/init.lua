@@ -15,7 +15,7 @@ return {
     build = ":TSUpdate",
     config = function()
       require("nvim-treesitter.configs").setup({
-        ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown" },
+        ensure_installed = { "c", "ruby", "html", "css","embedded_template", "lua", "vim", "vimdoc", "query", "markdown" },
         auto_install = true,
         --- latexだけバージョンが足りないので除外
         ignore_install = {"latex"},
@@ -82,25 +82,77 @@ return {
       -- 1. Mason (インストーラー) の設定
       require("mason").setup()
 
-      -- 2. Mason-LSPConfig (橋渡し) の設定
-      local lspconfig = require("lspconfig")
+      -- 2. 共通設定
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
-      require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "ruby_lsp" },
 
+      -- Neovim 0.11+ の新しい書き方: 全てのサーバーに共通設定を適用
+      -- これにより require('lspconfig') を使わずに設定が可能になります
+      vim.lsp.config("*", { capabilities = capabilities })
+
+      -- ruby_lsp の個別設定 (Masonを介さず、システムの shim を直接指定)
+      vim.lsp.config("ruby_lsp", {
+        cmd = { vim.fn.expand("~/.rbenv/shims/ruby-lsp") },
+        init_options = {
+          formatter = 'rubocop',
+          linters = { 'rubocop' },
+          addonSettings = {
+            ["Ruby LSP Rails"] = {
+              enablePendingMigrationsPrompt = false,
+            },
+          },
+        },
+      })
+
+      -- Mason-LSPConfig の設定
+      require("mason-lspconfig").setup({
+        ensure_installed = { "lua_ls", "html", "cssls" },
         handlers = {
           function(server_name)
-            lspconfig[server_name].setup({
-              capabilities = capabilities,
-            })
+            -- Neovim 0.11+ では vim.lsp.enable でサーバーを有効化するのが推奨されます
+            vim.lsp.enable(server_name)
           end,
         },
       })
+
+      -- Ruby LSP用のカスタムコマンド (依存関係の表示)
+      local function add_ruby_deps_command(client, bufnr)
+        vim.api.nvim_buf_create_user_command(bufnr, "ShowRubyDeps", function(opts)
+          local params = vim.lsp.util.make_text_document_params()
+          local showAll = opts.args == "all"
+
+          client.request("rubyLsp/workspace/dependencies", params, function(error, result)
+            if error then
+              print("Error showing deps: " .. error)
+              return
+            end
+
+            local qf_list = {}
+            for _, item in ipairs(result) do
+              if showAll or item.dependency then
+                table.insert(qf_list, {
+                  text = string.format("%s (%s) - %s", item.name, item.version, item.dependency),
+                  filename = item.path
+                })
+              end
+            end
+
+            vim.fn.setqflist(qf_list)
+            vim.cmd('copen')
+          end, bufnr)
+        end, { nargs = "?", complete = function() return { "all" } end })
+      end
 
       -- 3. キーマップ設定 (LSPが繋がったときだけ有効になるキー)
       vim.api.nvim_create_autocmd("LspAttach", {
         group = vim.api.nvim_create_augroup("UserLspConfig", {}),
         callback = function(ev)
+          local client = vim.lsp.get_client_by_id(ev.data.client_id)
+
+          -- Ruby LSP の場合、カスタムコマンドを追加
+          if client and client.name == "ruby_lsp" then
+            add_ruby_deps_command(client, ev.buf)
+          end
+
           -- 定義ジャンプ
           vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = ev.buf, desc = "Go to Definition" })
           -- ホバー
@@ -115,7 +167,7 @@ return {
             { buffer = ev.buf, desc = "Code Action" }
           )
           vim.api.nvim_create_autocmd("BufWritePre", {
-            buffer = ev.buf, -- 今開いているバッファだけで有効にする
+            buffer = ev.buf,
             callback = function()
               vim.lsp.buf.format({ async = false })
             end,
@@ -169,5 +221,29 @@ return {
         }),
       })
     end,
+  },
+  {
+    'tpope/vim-rails',
+    ft = {'ruby', 'eruby', 'haml', 'slim'},
+    config =function()
+    end
+  },
+  -- 8. Lazygit
+  {
+    "kdheepak/lazygit.nvim",
+    cmd = {
+      "LazyGit",
+      "LazyGitConfig",
+      "LazyGitCurrentFile",
+      "LazyGitFilter",
+      "LazyGitFilterCurrentFile",
+    },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    -- キー設定: Space + g で Lazygit を起動
+    keys = {
+      { "<leader>g", "<cmd>LazyGit<cr>", desc = "LazyGit" },
+    },
   },
 }

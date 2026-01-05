@@ -33,8 +33,11 @@ mkdir -p "$HOME/.config"
 
 # Neovim
 backup_and_link "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
-
-# tmux（存在する場合）
+# alacritty
+if [ -d "$DOTFILES_DIR/alacritty" ]; then
+  backup_and_link "$DOTFILES_DIR/alacritty" "$HOME/.config/alacritty"
+fi
+# tmux
 if [ -f "$DOTFILES_DIR/.tmux.conf" ]; then
   backup_and_link "$DOTFILES_DIR/.tmux.conf" "$HOME/.tmux.conf"
 fi

@@ -69,3 +69,17 @@ vim.keymap.set('n', '<Leader>?', function()
   vim.opt_local.relativenumber = false
   vim.opt_local.cursorline = false
 end, { desc = 'Open custom cheat sheet' })
+-- vim-rails
+-- コードとテスト（spec）を爆速で往復
+keymap.set("n", "<leader>ra", ":A<CR>", { desc = "Rails: Alternate (Code <-> Test)" })
+
+-- 各ディレクトリのファイルへジャンプ（引数なしで実行すると今のファイルに関連するものを開く）
+keymap.set("n", "<leader>rm", ":Emodel ", { desc = "Rails: Go to Model" })
+keymap.set("n", "<leader>rc", ":Econtroller ", { desc = "Rails: Go to Controller" })
+keymap.set("n", "<leader>rv", ":Eview ", { desc = "Rails: Go to View" })
+keymap.set("n", "<leader>rs", ":Eschema<CR>", { desc = "Rails: Open schema.rb" })
+keymap.set("n", "<leader>rr", ":Eroute<CR>", { desc = "Rails: Open routes.rb" })
+
+-- 便利な補助機能
+-- カーソル下のワードがパーシャルやモデル名ならそのファイルを開く (gfのラップ)
+keymap.set("n", "<leader>rf", "gf", { desc = "Rails: Go to File under cursor" })

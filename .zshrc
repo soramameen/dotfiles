@@ -32,6 +32,9 @@ export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 export LIBRARY_PATH="/opt/homebrew/opt/flex/lib:$LIBRARY_PATH"
 export CPATH="/opt/homebrew/opt/flex/include:$CPATH"
 
+# gemini cli
+export GEMINI_MODEL="gemini-3-flash-preview"
+
 # Python (Conda)
 __conda_setup="$('/opt/homebrew/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
@@ -80,7 +83,6 @@ alias oldnvim="NVIM_APPNAME=oldnvim nvim"
 alias update='pnpm get-schema && pnpm codegen'
 alias l="eza --group-directories-first -1 -l -F -a -b --icons"
 alias files='yazi'
-alias man='tldr'
 alias t='tmux'
 
 # Web Search
@@ -183,3 +185,8 @@ fi
 export MAPS_HOME="$HOME/opt/maps-1.5"
 PATH=$PATH:$MAPS_HOME/bin
 export PATH
+
+# Added by Antigravity
+export PATH="/Users/nakajimasoraera/.antigravity/antigravity/bin:$PATH"
+
+export PATH="$HOME/bin:$PATH"

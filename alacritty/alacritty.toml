@@ -143,14 +143,4 @@ key = "D"
 mods = "Command"
 action = "ScrollHalfPageDown"
 
-# 1. コピーモードのキー操作をviにする
-setw -g mode-keys vi
 
-# 2. 'v' で選択を始める (Vimのv)
-bind -T copy-mode-vi v send -X begin-selection
-
-# 3. 'V' (Shift+v) で行選択 (VimのShift+v)
-bind -T copy-mode-vi V send -X select-line
-
-# 4. 'y' でクリップボードにコピー (Vimのy)
-bind -T copy-mode-vi y send -X copy-pipe-and-cancel "pbcopy"

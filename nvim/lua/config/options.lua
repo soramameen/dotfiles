@@ -21,3 +21,11 @@ opt.smartcase = true -- 大文字が含まれる場合のみ区別
 opt.cursorline = true -- 現在行をハイライト
 opt.termguicolors = true -- True Colorを使用
 opt.signcolumn = "yes" -- 左端のサイン列を常に表示（ガタつき防止）
+-- ファイルが外部で変更されたら自動で読み直す設定
+vim.o.autoread = true
+
+-- フォーカスした時やバッファに入った時にチェックを実行する
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
+  pattern = "*",
+  command = "checktime",
+})

@@ -260,7 +260,10 @@ return {
       local opencode = require("opencode")
 
       -- AI操作: Ctrl + Space で質問開始
-      vim.keymap.set({ "n", "x" }, "<C-Space>", function() opencode.ask("@this: ", { submit = true }) end, { desc = "Ask opencode" })
+      -- ノーマルモード: ファイル全体 (@buffer)
+      vim.keymap.set("n", "<C-Space>", function() opencode.ask("@buffer: ", { submit = true }) end, { desc = "Ask opencode (Buffer)" })
+      -- ビジュアルモード: 選択範囲 (@this)
+      vim.keymap.set("x", "<C-Space>", function() opencode.ask("@this: ", { submit = true }) end, { desc = "Ask opencode (Selection)" })
       vim.keymap.set({ "n", "x" }, "<C-x>", function() opencode.select() end,                          { desc = "Opencode Actions" })
       vim.keymap.set({ "n", "t" }, "<C-.>", function() opencode.toggle() end,                          { desc = "Toggle opencode" })
 

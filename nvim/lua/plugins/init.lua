@@ -246,4 +246,27 @@ return {
       { "<leader>g", "<cmd>LazyGit<cr>", desc = "LazyGit" },
     },
   },
+  -- 9. OpenCode (AI Assistant)
+  {
+    "NickvanDyke/opencode.nvim",
+    config = function()
+      vim.g.opencode_opts = {
+        provider = {
+          enabled = "tmux",
+        },
+      }
+      vim.o.autoread = true
+
+      local opencode = require("opencode")
+
+      -- AI操作: Ctrl + Space で質問開始
+      vim.keymap.set({ "n", "x" }, "<C-Space>", function() opencode.ask("@this: ", { submit = true }) end, { desc = "Ask opencode" })
+      vim.keymap.set({ "n", "x" }, "<C-x>", function() opencode.select() end,                          { desc = "Opencode Actions" })
+      vim.keymap.set({ "n", "t" }, "<C-.>", function() opencode.toggle() end,                          { desc = "Toggle opencode" })
+
+      -- 標準のインクリメント/デクリメントを退避
+      vim.keymap.set("n", "+", "<C-a>", { desc = "Increment", noremap = true })
+      vim.keymap.set("n", "-", "<C-x>", { desc = "Decrement", noremap = true })
+    end,
+  },
 }

@@ -37,6 +37,12 @@ backup_and_link "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
 if [ -d "$DOTFILES_DIR/alacritty" ]; then
   backup_and_link "$DOTFILES_DIR/alacritty" "$HOME/.config/alacritty"
 fi
+
+# opencode
+if [ -d "$DOTFILES_DIR/opencode" ]; then
+  backup_and_link "$DOTFILES_DIR/opencode" "$HOME/.config/opencode"
+fi
+
 # tmux
 if [ -f "$DOTFILES_DIR/.tmux.conf" ]; then
   backup_and_link "$DOTFILES_DIR/.tmux.conf" "$HOME/.tmux.conf"

@@ -84,6 +84,7 @@ alias update='pnpm get-schema && pnpm codegen'
 alias l="eza --group-directories-first -1 -l -F -a -b --icons"
 alias files='yazi'
 alias t='tmux'
+alias oc='opencode'
 
 # Web Search
 alias web='open -a "Zen"'
@@ -92,6 +93,8 @@ alias search='web "https://www.google.com/search?q=$1"'
 # Shortcuts
 alias obsidian='cd "$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/mydream"'
 alias today='nvim "$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/mydream/毎日振り返り/$(date +%Y-%m-%d).md"'
+alias dced='docker compose exec db mysql -u root -proot worldcup2014'
+
 
 # ==================== カスタム関数 ====================
 # smart cat (scat)
@@ -190,3 +193,5 @@ export PATH
 export PATH="/Users/nakajimasoraera/.antigravity/antigravity/bin:$PATH"
 
 export PATH="$HOME/bin:$PATH"
+eval "$(mise activate zsh)"
+alias dev="~/tmux-dev.sh"

@@ -1,0 +1,209 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "default_agent": "commander",
+  "mcp": {
+    "brave-search": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@modelcontextprotocol/server-brave-search"
+      ],
+      "environment": {
+        "BRAVE_API_KEY": "YOUR_KEY_HERE"
+      }
+    }
+  },
+  "permission": {
+    "agent": "allow",
+    "brave_web_search": "allow",
+    "read": "allow",
+    "write": "allow",
+    "edit": "allow",
+    "bash": "allow"
+  },
+  "plugin": [
+    "opencode-antigravity-auth@beta",
+    "oh-my-opencode"
+  ],
+  "agent": {
+    "commander": {
+      "model": "zai-coding-plan/glm-4.7",
+      "description": "PM。計画、指示、品質管理を行う。",
+      "prompt": "あなたはTDD（テスト駆動開発）を推進するPMです。\n\n【開発プロセス】\n1. 【計画】@analystと@researcherを使い、仕様を確定させる。\n2. 【テスト作成】仕様に基づき、@test_engineer に「テストコード」を作成させる。\n3. 【実装】@coder に実装を指示する。@coderはテストが通るまで修正を繰り返す。\n4. 【完了】全てのテストが通過したことを確認し、ユーザーに報告する。\n\n【レビュー】テスト通過後、@reviewer にコードの品質チェックと変更内容の要約を依頼する。\n5. 【完了】レビュー結果を確認し、ユーザーに最終的な変更の流れ・まとめ・意図を報告する。\n\n※あなた自身は実装を行わず、各エージェントへの指示出しに徹してください。",
+      "tools": {
+        "agent": true,
+        "brave_web_search": false,
+        "write": false
+      }
+    },
+    "test_engineer": {
+      "model": "zai-coding-plan/glm-4.7",
+      "description": "テスト担当。仕様書に基づき、テストケースの実装を行う。",
+      "prompt": "あなたは品質保証のプロフェッショナルです。指揮官から渡された仕様に基づき、エッジケースを考慮した厳格なテストコードを作成してください。\n- 既存のテストファイルを分析し、整合性を保つこと。\n- 実装前にテストを実行し、正しく「失敗（Fail）」することを確認してください。",
+      "tools": {
+        "write": true,
+        "edit": true,
+        "bash": true,
+        "read": true,
+        "brave_web_search": false
+      }
+    },
+    "coder": {
+      "model": "zai-coding-plan/glm-4.7",
+      "description": "実装エンジニア。テストをパスさせるためのコードを書く。",
+      "prompt": "あなたはTDDの実装担当です。\n1. @test_engineer が作成したテストを実行し、エラーを確認する。\n2. テストをパスするための最小限のコードを実装する。\n3. テストを実行し、Passするまで修正を繰り返す（自律ループ）。\n4. 全てのテストが通ったら完了報告をする。",
+      "tools": {
+        "write": true,
+        "edit": true,
+        "bash": true,
+        "read": true,
+        "brave_web_search": false
+      }
+    },
+    "analyst": {
+      "model": "zai-coding-plan/glm-4.7",
+      "description": "コードベース分析担当。",
+      "tools": {
+        "read": true,
+        "ls": true,
+        "grep": true,
+        "write": false
+      }
+    },
+    "researcher": {
+      "model": "zai-coding-plan/glm-4.7",
+      "description": "Web検索担当。",
+      "tools": {
+        "brave_web_search": true
+      },
+      "permission": {
+        "brave_web_search": "allow"
+      }
+    },
+    "reviewer": {
+      "model": "zai-coding-plan/glm-4.7",
+      "description": "コードレビュー担当。品質、設計、意図の整合性を確認する。",
+      "prompt": "あなたは熟練のシニアエンジニアです。@coder が実装した内容が、仕様およびテストを適切に満たしているかレビューしてください。\n\n【確認事項】\n1. 変更の意図が明確か。\n2. 重複したコードや無駄なロジックがないか。\n3. コーディング規約やベストプラクティスに則っているか。\n\n【出力形式】\n- 変更の概要、意図、およびコードの改善ポイントを要約して出力してください。",
+      "tools": {
+        "read": true,
+        "ls": true
+      }
+    },
+    "mentor": {
+      "model": "zai-coding-plan/glm-4.7",
+      "description": "学習パートナー。概念解説と実験の提案。",
+      "prompt": "あなたはユーザーの専属技術メンターです。\n用語の解説だけでなく、「実際に動かして確認しましょう」と @lab_assistant を使った実験コードを提案し、能動的な学習を促してください。",
+      "tools": {
+        "agent": true,
+        "read": true,
+        "write": false,
+        "brave_web_search": false
+      }
+    },
+    "lab_assistant": {
+      "model": "zai-coding-plan/glm-4.7",
+      "description": "実験担当。概念実証コードを書いて実行し、結果を見せる。",
+      "prompt": "あなたは実験助手です。メンターの解説を実証する、最小限の「使い捨てコード」を作成し、即座に実行して出力をユーザーに見せてください。",
+      "tools": {
+        "write": true,
+        "bash": true,
+        "read": true,
+        "brave_web_search": false
+      }
+    },
+    "report-agent": {
+      "model": "zai-coding-plan/glm-4.7",
+      "description": "レポート作成指揮官。作成・レビュー・修正のループを管理する。",
+      "prompt": "あなたはレポート作成の指揮官です。\n目的：ユーザーが作成した `main.tex` の構成・内容に準拠した高品質なレポートを完成させること。\n\n【ワークフロー】\n以下のループを完成するまで繰り返してください：\n1. 【執筆/修正】@docs-writer に指示し、レポートの執筆または修正を行わせる。\n2. 【レビュー】@report-review に指示し、執筆された内容をレビューさせる。\n3. 【判定】\n   - 重大な指摘がある場合：指摘内容を整理し、再度 @docs-writer に修正を指示する（ステップ1へ）。\n   - 指摘がない/軽微な場合：完了をユーザーに報告する。\n\n※あなた自身はファイルの編集を行わず、必ずエージェントを使ってください。",
+      "tools": {
+        "agent": true,
+        "read": true,
+        "write": false
+      }
+    },
+    "report-review": {
+      "model": "zai-coding-plan/glm-4.7",
+      "description": "レポートレビュアー。LaTeX記述や日本語表現をチェックする。",
+      "prompt": "あなたは日本語LaTeX技術レポートの校正・品質管理を行う専門エージェントです。\n特定の実験内容（ロジック）の正誤には深く踏み込まず、「文書としての品質」「LaTeXの記述作法」「日本語表現」を徹底的にチェックします。\n\n## ⚠️ CRITICAL RESTRICTIONS (重要制約)\n1. 完全読み取り専用 (Read-Only)\n   - `write`, `edit` ツールの使用は禁止です。\n2. 提案のみ実行\n   - 修正案はチャットで提示し、勝手にファイルを書き換えないでください。\n3. 言語設定\n   - 必ず日本語で返答してください。\n\n## 共通レビュー観点\n1. LaTeXマークアップと構文\n   - 関数名・変数名は `\\verb|...|` 等で囲む。\n   - 図表番号は `\\ref{...}` を使用する。\n2. 日本語スタイル（理系標準）\n   - 句読点は「，．」を使用。\n   - 「だ・である」調で統一。\n3. 文書構造と品質\n   - 具体的なキャプション。\n   - 誤字脱字のチェック。",
+      "tools": {
+        "read": true,
+        "write": false,
+        "edit": false
+      }
+    },
+    "docs-writer": {
+      "model": "zai-coding-plan/glm-4.7",
+      "description": "ドキュメント執筆・修正担当。",
+      "prompt": "あなたは日本語LaTeX技術ドキュメントの執筆と修正を行う専門エージェントです。\nユーザーの指示やレビュー結果に基づき、テキストファイルを編集してドキュメントを完成させます。\n\n## ⚠️ CRITICAL RESTRICTIONS (重要制約)\n1. システム操作の制限\n   - `bash` によるコンパイルやGit操作は禁止。\n2. 既存スタイルの尊重\n   - 編集箇所以外のコードを不必要に変更しない。\n\n## 執筆ガイドライン\n- LaTeX: 関数名は `\\verb|...|`、参照は `\\ref{...}`\n- 日本語: 句読点は「，．」、「だ・である」調。\n- 指示がある場合は `main.tex` やプロジェクトルールに従うこと。",
+      "tools": {
+        "write": true,
+        "edit": true,
+        "read": true
+      }
+    }
+  },
+  "provider": {
+    "google": {
+      "name": "Google",
+      "models": {
+        "antigravity-gemini-3-pro-high": {
+          "name": "Gemini 3 Pro High (Antigravity)",
+          "thinking": true,
+          "attachment": true,
+          "limit": {
+            "context": 1048576,
+            "output": 65535
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        },
+        "antigravity-gemini-3-pro-low": {
+          "name": "Gemini 3 Pro Low (Antigravity)",
+          "thinking": true,
+          "attachment": true,
+          "limit": {
+            "context": 1048576,
+            "output": 65535
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        },
+        "antigravity-gemini-3-flash": {
+          "name": "Gemini 3 Flash (Antigravity)",
+          "attachment": true,
+          "limit": {
+            "context": 1048576,
+            "output": 65536
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

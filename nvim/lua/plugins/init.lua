@@ -250,11 +250,11 @@ return {
   {
     "NickvanDyke/opencode.nvim",
     config = function()
-      vim.g.opencode_opts = {
-        provider = {
-          enabled = "tmux",
-        },
-      }
+    vim.g.opencode_opts = {
+      provider = {
+        enabled = "tmux",
+      },
+    }
       vim.o.autoread = true
 
       local opencode = require("opencode")
@@ -271,5 +271,23 @@ return {
       vim.keymap.set("n", "+", "<C-a>", { desc = "Increment", noremap = true })
       vim.keymap.set("n", "-", "<C-x>", { desc = "Decrement", noremap = true })
     end,
+  },
+  -- 10. Diffview (Git diff viewer)
+  {
+    "sindrets/diffview.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    keys = {
+      {
+        "<leader>d",
+        function()
+          if next(require("diffview.lib").views) == nil then
+            vim.cmd("DiffviewOpen")
+          else
+            vim.cmd("DiffviewClose")
+          end
+        end,
+        desc = "Toggle Diffview",
+      },
+    },
   },
 }

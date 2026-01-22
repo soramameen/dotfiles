@@ -81,3 +81,61 @@ keymap.set("n", "<leader>rr", ":Eroute<CR>", { desc = "Rails: Open routes.rb" })
 -- 便利な補助機能
 -- カーソル下のワードがパーシャルやモデル名ならそのファイルを開く (gfのラップ)
 keymap.set("n", "<leader>rf", "gf", { desc = "Rails: Go to File under cursor" })
+
+-- Obsidian
+-- 新規Inbox作成 + テンプレート適用
+keymap.set("n", "<leader>on", function()
+  vim.cmd("ObsidianNew")
+  -- 200ms後にテンプレート適用（ファイルオープン待ち）
+  vim.defer_fn(function()
+    vim.cmd("ObsidianTemplate Inbox_Template")
+  end, 200)
+end, { desc = "Obsidian: New Inbox Note" })
+
+keymap.set("n", "<leader>os", ":ObsidianSearch<CR>", { desc = "Obsidian: Search Notes" })
+keymap.set("n", "<leader>od", ":ObsidianToday<CR>", { desc = "Obsidian: Daily Note" })
+keymap.set("n", "<leader>ot", ":ObsidianTemplate<CR>", { desc = "Obsidian: Insert Template" })
+
+-- Obsidian: 選択した単語をConceptsに登録
+keymap.set({ "n", "v" }, "<leader>oc", function()
+  -- 選択範囲またはカーソル下の単語を取得
+  local text = ""
+  local mode = vim.fn.mode()
+  
+  if mode == "v" or mode == "V" or mode == "\22" then
+    -- ビジュアルモード: 選択範囲を取得
+    vim.cmd('noau normal! "vy')
+    text = vim.fn.getreg("v")
+  else
+    -- ノーマルモード: カーソル下の単語
+    text = vim.fn.expand("<cword>")
+  end
+
+  if text == "" then
+    print("No text selected")
+    return
+  end
+
+  -- ファイル名に使えない文字を除去
+  local filename = text:gsub("[/\\:*?\"<>|]", "")
+  if filename == "" then return end
+  
+  -- Conceptsディレクトリのパス (絶対パスで指定)
+  local concepts_dir = "/Users/nakajimasoraera/Library/Mobile Documents/iCloud~md~obsidian/Documents/mydream/Zettelkasten/Concepts"
+  local filepath = concepts_dir .. "/" .. filename .. ".md"
+
+  -- ファイルが存在しない場合のみ作成
+  local f = io.open(filepath, "r")
+  if f then
+    f:close()
+    print("⚠️ Already exists: " .. filename)
+  else
+    local file = io.open(filepath, "w")
+    if file then
+      file:close()
+      print("✨ Concept Registered: " .. filename)
+    else
+      print("❌ Failed to create concept: " .. filename)
+    end
+  end
+end, { desc = "Obsidian: Register Concept" })

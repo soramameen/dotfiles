@@ -290,4 +290,157 @@ return {
       },
     },
   },
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    ---@type Flash.Config
+    opts = {},
+    -- stylua: ignore
+    keys = {
+      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+      { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+    },
+  },
+  -- 11. Obsidian.nvim
+  {
+    "epwalsh/obsidian.nvim",
+    version = "*",  -- recommended, use latest release instead of latest commit
+    lazy = true,
+    ft = "markdown",
+    cmd = {
+      "ObsidianNew",
+      "ObsidianSearch",
+      "ObsidianToday",
+      "ObsidianTemplate",
+    },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    config = function()
+      require("obsidian").setup({
+        workspaces = {
+          {
+            name = "mydream",
+            path = "/Users/nakajimasoraera/Library/Mobile Documents/iCloud~md~obsidian/Documents/mydream",
+          },
+        },
+        -- 新規ノートの保存先
+        new_notes_location = "notes_subdir",
+        notes_subdir = "Zettelkasten/Inbox",
+        
+        -- デイリーノート設定（使わない場合は無視されます）
+        daily_notes = {
+          folder = "毎日振り返り",
+          date_format = "%Y-%m-%d",
+        },
+
+        -- テンプレート設定
+        templates = {
+          folder = "template",
+          date_format = "%Y-%m-%d",
+          time_format = "%H:%M",
+        },
+
+        -- 新規ノートIDのフォーマット (YYYYMMDD_HHmm)
+        note_id_func = function(title)
+          if title ~= nil then
+            -- タイトルが指定された場合はそれをファイル名にする（変換が必要ならここで）
+            return title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
+          else
+            -- タイトル指定なし（:ObsidianNew）の場合、日時IDを生成
+            return os.date("%Y%m%d_%H%M")
+          end
+        end,
+
+        -- ノート作成時にフロントマターを自動挿入するか
+        -- すでにテンプレート側でやっているので、ここは false か minimalist に
+        disable_frontmatter = true,
+
+        -- キーマッピング
+        mappings = {
+          -- リンクを開く
+          ["gf"] = {
+            action = function()
+              return require("obsidian").util.gf_passthrough()
+            end,
+            opts = { noremap = false, expr = true, buffer = true },
+          },
+          -- チェックボックスのトグル
+          ["<leader>ch"] = {
+            action = function()
+              return require("obsidian").util.toggle_checkbox()
+            end,
+            opts = { buffer = true },
+          },
+        },
+        
+        -- UI設定
+        ui = {
+          enable = false,  -- チェックボックスの装飾などを無効化（好みで変更可）
+        },
+      })
+    end,
+  },
+  -- 12. img-clip.nvim (画像貼り付け)
+  {
+    "HakonHarnes/img-clip.nvim",
+    event = "VeryLazy",
+    opts = {
+      default = {
+        embed_image_as_base64 = false,
+        prompt_for_file_name = false,
+        drag_and_drop = {
+          insert_mode = true,
+        },
+        -- 常にプロジェクトルートの assets フォルダに保存
+        dir_path = "assets", 
+        -- ファイル名生成: YYYY-MM-DD-HH-MM-SS
+        file_name = "%Y-%m-%d-%H-%M-%S",
+        -- Obsidianスタイルのリンク ![[image.png]]
+        use_absolute_path = false,
+        relative_to_current_file = false, -- ルートからのパスにするかどうか...
+        -- Obsidianの場合、assetsがルートにあれば ![[image.png]] で通る設定が多いが、
+        -- 確実にするなら ![[assets/image.png]] か。
+        -- templateをカスタマイズしてObsidian形式に合わせる
+        template = "![[file_name]]", 
+      },
+    },
+    keys = {
+      { "<leader>p", "<cmd>PasteImage<cr>", desc = "Paste Image from Clipboard" },
+    },
+  },
+
+  -- 13. image.nvim (画像プレビュー - for Ghostty/WezTerm/Kitty)
+  {
+    "3rd/image.nvim",
+    build = false,
+    opts = {
+      backend = "kitty", -- GhosttyはKitty Graphics Protocol互換
+      integrations = {
+        markdown = {
+          enabled = true,
+          clear_in_insert_mode = false,
+          download_remote_images = true,
+          only_render_image_at_cursor = false,
+          filetypes = { "markdown", "vimwiki" },
+        },
+        neorg = {
+          enabled = true,
+          filetypes = { "norg" },
+        },
+      },
+      max_width = nil,
+      max_height = nil,
+      max_width_window_percentage = nil,
+      max_height_window_percentage = 50,
+      window_overlap_clear_enabled = false, 
+      editor_only_render_when_focused = false, 
+      tmux_show_only_in_active_window = true, 
+      hijack_file_patterns = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp" }, 
+    },
+  },
 }
+

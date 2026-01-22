@@ -4,10 +4,13 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
     # Linux (Ubuntu)
-    export PATH="$HOME/.local/bin:$PATH"
+    # export PATH="$HOME/.local/bin:$PATH"  <-- ここにあったのを削除
 fi
 
 # ==================== パス & 言語設定 ====================
+# ユーザーローカルbin (OS問わず共通で使う)
+export PATH="$HOME/.local/bin:$PATH"
+
 # Ruby (rbenv)
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
@@ -86,6 +89,12 @@ alias files='yazi'
 alias t='tmux'
 alias oc='opencode'
 
+#tmux
+alias tl="tmux ls"
+alias ta="tmux a"
+alias tkt="tmux kill-session -t"
+alias tk="tmux kill-session"
+
 # Web Search
 alias web='open -a "Zen"'
 alias search='web "https://www.google.com/search?q=$1"'
@@ -121,6 +130,21 @@ scat() {
     *) bat -pP "$file" ;;
   esac
 }
+
+# notify (Desktop Notification) - REMOVED (Use ~/bin/notify script instead)
+# notify() { ... }
+
+
+
+# ==================== Auto Notify Config ====================
+export AUTO_NOTIFY_THRESHOLD=10
+export AUTO_NOTIFY_TITLE="Task Completed"
+export AUTO_NOTIFY_BODY="Command: %command\nTime: %elapsed s"
+# Ignore list
+export AUTO_NOTIFY_IGNORE=(
+    'tmux' 'nvim' 'vim' 'man' 'less' 'more' 'top' 'htop' 'ssh'
+    'git commit' 'nano' 'watch'
+)
 
 # ==================== ツール初期化 ====================
 # zoxide

@@ -25,7 +25,7 @@ opt.signcolumn = "yes" -- 左端のサイン列を常に表示（ガタつき防
 vim.o.autoread = true
 
 -- フォーカスした時やバッファに入った時にチェックを実行する
-vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
   pattern = "*",
   command = "checktime",
 })

@@ -4,6 +4,7 @@
 # --- Font Settings ---
 # "コードを芸術に変える"
 font-family = "JetBrainsMono Nerd Font"
+font-family = "Hiragino Sans W6"
 font-size = 18
 # 文字の描画位置微調整 (Ghosttyは自動調整が優秀ですが、必要なら調整可)
 # font-thicken = true

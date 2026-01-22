@@ -245,6 +245,25 @@ return {
     keys = {
       { "<leader>g", "<cmd>LazyGit<cr>", desc = "LazyGit" },
     },
+    config = function()
+      -- 背景透過を無効化（0 = 不透明）
+      vim.g.lazygit_floating_window_winblend = 0
+
+      -- 背景色を強制的に指定（Tokyo Nightの深い色 #16161e を使用）
+      -- LazyGitFloat: ウィンドウの中身
+      -- LazyGitBorder: ウィンドウの枠
+      vim.api.nvim_set_hl(0, "LazyGitFloat", { bg = "#16161e" })
+      vim.api.nvim_set_hl(0, "LazyGitBorder", { bg = "#16161e", fg = "#a9b1d6" })
+
+      -- テーマ切り替え時にも適用されるように自動コマンドを設定
+      vim.api.nvim_create_autocmd("ColorScheme", {
+        pattern = "*",
+        callback = function()
+          vim.api.nvim_set_hl(0, "LazyGitFloat", { bg = "#16161e" })
+          vim.api.nvim_set_hl(0, "LazyGitBorder", { bg = "#16161e", fg = "#a9b1d6" })
+        end,
+      })
+    end,
   },
   -- 9. OpenCode (AI Assistant)
   {

@@ -1,0 +1,70 @@
+{
+  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json",
+  "agents": {
+    "sisyphus": {
+      "model": "github-copilot/claude-sonnet-4.5"
+    },
+    "oracle": {
+      "model": "github-copilot/gpt-5.2",
+      "variant": "high"
+    },
+    "librarian": {
+      "model": "zai-coding-plan/glm-4.7"
+    },
+    "explore": {
+      "model": "opencode/gpt-5-nano"
+    },
+    "multimodal-looker": {
+      "model": "google/gemini-3-flash"
+    },
+    "prometheus": {
+      "model": "github-copilot/claude-opus-4.5",
+      "variant": "max"
+    },
+    "metis": {
+      "model": "github-copilot/claude-opus-4.5",
+      "variant": "max"
+    },
+    "momus": {
+      "model": "github-copilot/gpt-5.2",
+      "variant": "medium"
+    },
+    "atlas": {
+      "model": "github-copilot/claude-sonnet-4.5"
+    },
+    "assistant": { 
+      "model": "zai-coding-plan/glm-4.7",
+      "variant": "medium" 
+    }
+
+  },
+  "categories": {
+    "general-purpose": {
+      "model": "zai-coding-plan/glm-4.7",
+      "description": "日常的なタスク、メール作成、ドキュメントの要約、簡単なスクリプト作成など"
+    },
+    "visual-engineering": {
+      "model": "google/gemini-3-pro"
+    },
+    "ultrabrain": {
+      "model": "github-copilot/gpt-5.2-codex",
+      "variant": "xhigh"
+    },
+    "artistry": {
+      "model": "google/gemini-3-pro",
+      "variant": "max"
+    },
+    "quick": {
+      "model": "github-copilot/claude-haiku-4.5"
+    },
+    "unspecified-low": {
+      "model": "github-copilot/claude-sonnet-4.5"
+    },
+    "unspecified-high": {
+      "model": "github-copilot/claude-sonnet-4.5"
+    },
+    "writing": {
+      "model": "google/gemini-3-flash"
+    }
+  }
+}

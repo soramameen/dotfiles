@@ -29,16 +29,15 @@
     "momus": {
       "model": "zai-coding-plan/glm-4.7",
       "variant": "high"
-    }
+    },
     "atlas": {
       "model": "zai-coding-plan/glm-4.7",
       "variant": "high"
     },
-    "assistant": { 
+    "assistant": {
       "model": "zai-coding-plan/glm-4.7",
-      "variant": "medium" 
+      "variant": "medium"
     }
-
   },
   "categories": {
     "general-purpose": {
@@ -57,7 +56,7 @@
       "variant": "max"
     },
     "quick": {
-      "model": "zai-coding-plan/glm-4.7-flash",
+      "model": "zai-coding-plan/glm-4.7-flash"
     },
     "unspecified-low": {
       "model": "zai-coding-plan/glm-4.7",

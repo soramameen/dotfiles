@@ -13,18 +13,18 @@
       "model": "zai-coding-plan/glm-4.7"
     },
     "explore": {
-      "model": "opencode/gpt-5-nano"
+      "model": "zai-coding-plan/glm-4.7"
     },
     "multimodal-looker": {
       "model": "google/gemini-3-flash"
     },
     "prometheus": {
-      "model": "github-copilot/claude-opus-4.5",
-      "variant": "max"
+      "model": "zai-coding-plan/glm-4.7",
+      "variant": "high"
     },
     "metis": {
-      "model": "github-copilot/claude-opus-4.5",
-      "variant": "max"
+      "model": "zai-coding-plan/glm-4.7",
+      "variant": "high"
     },
     "momus": {
       "model": "zai-coding-plan/glm-4.7",

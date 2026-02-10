@@ -1,4 +1,4 @@
-# My Dotfiles 🔥
+# My Dotfiles
 
 ## 環境
 

@@ -9,23 +9,6 @@
   },
   "model": "zai-coding-plan/glm-4.7",
   "provider": {
-    "ollama": {
-      "npm": "@ai-sdk/openai-compatible",
-      "name": "Ollama (Local Llama)",
-      "options": {
-        "baseURL": "http://localhost:11434/v1"
-      },
-      "models": {
-        "llama3.1:8b": {
-          "name": "Llama 3.1 8B (32k ctx)",
-          "maxTokens": 32768
-        },
-        "llama3.1-32k": {
-          "name": "Llama 3.1 8B extended",
-          "maxTokens": 32768
-        }
-      }
-    },
     "google": {
       "name": "Google",
       "models": {

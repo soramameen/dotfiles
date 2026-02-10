@@ -38,9 +38,27 @@ if [ -d "$DOTFILES_DIR/alacritty" ]; then
   backup_and_link "$DOTFILES_DIR/alacritty" "$HOME/.config/alacritty"
 fi
 
-# opencode
+# opencode (individual files to preserve private data)
 if [ -d "$DOTFILES_DIR/opencode" ]; then
-  backup_and_link "$DOTFILES_DIR/opencode" "$HOME/.config/opencode"
+  # Create .config/opencode if it doesn't exist
+  mkdir -p "$HOME/.config/opencode"
+
+  # Link individual files/directories (not entire directory to preserve private data)
+  if [ -f "$DOTFILES_DIR/opencode/opencode.json" ]; then
+    backup_and_link "$DOTFILES_DIR/opencode/opencode.json" "$HOME/.config/opencode/opencode.json"
+  fi
+
+  if [ -f "$DOTFILES_DIR/opencode/oh-my-opencode.json" ]; then
+    backup_and_link "$DOTFILES_DIR/opencode/oh-my-opencode.json" "$HOME/.config/opencode/oh-my-opencode.json"
+  fi
+
+  if [ -d "$DOTFILES_DIR/opencode/skills" ]; then
+    backup_and_link "$DOTFILES_DIR/opencode/skills" "$HOME/.config/opencode/skills"
+  fi
+
+  if [ -d "$DOTFILES_DIR/opencode/agent" ]; then
+    backup_and_link "$DOTFILES_DIR/opencode/agent" "$HOME/.config/opencode/agent"
+  fi
 fi
 
 # tmux

@@ -1,6 +1,6 @@
 ---
 name: memory-saver
-description: 現在の会話内容・作業状況を要約し、~/.config/opencode/memories/ にMarkdownファイルとして保存。トピック名をファイル名に含める。
+description: 作業が終わったら呼び出す。現在の会話内容・作業状況を要約し、~/.config/opencode/memories/ にMarkdownファイルとして保存。トピック名をファイル名に含める。
 user-invocable: true
 disable-model-invocation: false
 license: MIT

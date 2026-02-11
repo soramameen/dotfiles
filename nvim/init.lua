@@ -1,7 +1,5 @@
 require("config.options")
 require("config.keymaps")
-require("config.ai")
-require("config.doctor")
 -- 2. lazy.nvim のブートストラップ（自動インストール）
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then

@@ -10,9 +10,7 @@ keymap.set({ "n", "v" }, "H", "^", { desc = "Move to beginning of line" })
 keymap.set({ "n", "v" }, "L", "$", { desc = "Move to end of line" })
 
 -- 画面分割
--- <Leader> + | (パイプ) で縦分割
 keymap.set("n", "<leader>|", ":vsplit<CR>", { desc = "Split window vertically" })
--- <Leader> + - (ハイフン) で横分割
 keymap.set("n", "<leader>-", ":split<CR>", { desc = "Split window horizontally" })
 
 -- 画面間の移動 (Ctrl + h/j/k/l)
@@ -26,9 +24,6 @@ keymap.set("n", "<Up>", ":resize +2<CR>", { desc = "Increase window height" })
 keymap.set("n", "<Down>", ":resize -2<CR>", { desc = "Decrease window height" })
 keymap.set("n", "<Left>", ":vertical resize -2<CR>", { desc = "Decrease window width" })
 keymap.set("n", "<Right>", ":vertical resize +2<CR>", { desc = "Increase window width" })
-
--- AI用
-vim.keymap.set('v','<leader>g', ':G ', { desc = '選択範囲をAIに聞く'})
 
 -- help
 vim.keymap.set('n', '<Leader>?', function()
@@ -68,7 +63,6 @@ vim.keymap.set('n', '<Leader>?', function()
   vim.opt_local.cursorline = false
 end, { desc = 'Open custom cheat sheet' })
 -- vim-rails
--- コードとテスト（spec）を爆速で往復
 keymap.set("n", "<leader>ra", ":A<CR>", { desc = "Rails: Alternate (Code <-> Test)" })
 
 -- 各ディレクトリのファイルへジャンプ（引数なしで実行すると今のファイルに関連するものを開く）
@@ -91,6 +85,22 @@ keymap.set("n", "<leader>on", function()
     vim.cmd("ObsidianTemplate Inbox_Template")
   end, 200)
 end, { desc = "Obsidian: New Inbox Note" })
+
+-- 新規PermanentNote作成 + テンプレート適用
+keymap.set("n", "<leader>op", function()
+  -- タイトルを受け取り、PermanentNotes配下で作成
+  local title = vim.fn.input("Permanent note title (optional): ")
+  if title == "" then
+    vim.cmd("ObsidianNew Zettelkasten/PermanentNotes/")
+  else
+    vim.cmd("ObsidianNew Zettelkasten/PermanentNotes/" .. title)
+  end
+
+  -- 200ms後にテンプレート適用（ファイルオープン待ち）
+  vim.defer_fn(function()
+    vim.cmd("ObsidianTemplate PermanentNote_Template")
+  end, 200)
+end, { desc = "Obsidian: New Permanent Note" })
 
 keymap.set("n", "<leader>os", ":ObsidianSearch<CR>", { desc = "Obsidian: Search Notes" })
 keymap.set("n", "<leader>od", ":ObsidianToday<CR>", { desc = "Obsidian: Daily Note" })

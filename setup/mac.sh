@@ -31,12 +31,24 @@ brew install \
   zoxide \
   starship \
   lazygit \
-  gh
+  gh \
+  fd \
+  jq \
+  tree \
+  ghq \
+  glow \
+  tlrc \
+  fastfetch
 
 # Cask（GUI アプリ）
 echo "📦 Installing GUI apps..."
 brew install --cask \
   alacritty \
   font-jetbrains-mono-nerd-font
+
+# オプション: 会社のPCで必要に応じてアンコメント
+# echo "📦 Installing optional tools..."
+# brew install git-delta direnv mise nodenv rbenv
+# brew install --cask ghostty visual-studio-code
 
 echo "✅ Mac setup complete!"

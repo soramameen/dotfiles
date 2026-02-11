@@ -1,54 +1,27 @@
-# Ghostty Config - Migrated from Alacritty
-# ------------------------------------------------------------------
-
-# --- Font Settings ---
-# "コードを芸術に変える"
+## Font
 font-family = "JetBrainsMono Nerd Font"
 font-family = "Hiragino Sans W6"
 font-size = 18
-# 文字の描画位置微調整 (Ghosttyは自動調整が優秀ですが、必要なら調整可)
-# font-thicken = true
-
-# --- Window Settings ---
-# "美学"のための設定
+## Window
 window-padding-x = 16
 window-padding-y = 16
-
-# decorations = "buttonless" の再現
-# false: 枠を完全に消す（tmux使いならこっちの方が没入感があります）
-# window-decoration = false
 macos-titlebar-style = hidden
-
-# 透明度: 0.95 (0.05のこだわり)
 background-opacity = 0.95
-# blur-radius = 20 # macOS特有のすりガラス効果（Blur）を追加してリッチに
-
-# --- Color Scheme ---
-# Tokyo Night (Ghostty標準搭載)
+## Theme
 theme = tokyonight
-
-# --- Cursor ---
+## Cursor
 cursor-style = block
 cursor-style-blink = true
-
-# --- Mouse ---
+## Mouse
 mouse-hide-while-typing = true
-
-# --- Keybindings (Vim-like scrolling & Window control) ---
-# Cmd + k/j for line scrolling
+## Keybinds
 keybind = cmd+k=scroll_page_lines:-1
 keybind = cmd+j=scroll_page_lines:1
-
-# Cmd + u/d for page scrolling (half page emulation)
 keybind = cmd+u=scroll_page_fractional:-0.5
 keybind = cmd+d=scroll_page_fractional:0.5
-
-# Window / App control
 keybind = cmd+n=new_window
 keybind = cmd+q=quit
 keybind = f11=toggle_fullscreen
 keybind = cmd+ctrl+f=toggle_fullscreen
-
-# --- Shell Integration ---
-# tmux環境でも便利なシェル統合
+## Shell
 shell-integration = zsh

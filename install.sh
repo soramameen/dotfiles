@@ -2,8 +2,7 @@
 
 echo "🚀 Installing dotfiles..."
 
-# dotfilesディレクトリのパス
-DOTFILES_DIR="$HOME/dotfiles"
+DOTFILES_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
 
 # バックアップディレクトリ作成
 BACKUP_DIR="$HOME/dotfiles_backup_$(date +%Y%m%d_%H%M%S)"

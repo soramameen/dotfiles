@@ -1,9 +1,15 @@
+#!/bin/bash
 # ~/dotfiles/bootstrap.sh
 # 新しい環境で最初に実行するスクリプト
 
 set -e # エラーで停止
 
 echo "🚀 Starting dotfiles bootstrap..."
+
+# スクリプトのディレクトリ
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+export DOTFILES_DIR="$SCRIPT_DIR"
 
 # OS判定
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -16,9 +22,6 @@ else
 fi
 
 echo "📱 Detected OS: $OS"
-
-# スクリプトのディレクトリ
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Mac用セットアップ
 if [ "$OS" = "mac" ]; then

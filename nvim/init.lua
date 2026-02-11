@@ -15,6 +15,5 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- 3. プラグインのセットアップ (lua/plugins/init.lua を読み込む)
-require("lazy").setup("plugins")
-
+require("lazy").setup(require("plugins"))
 

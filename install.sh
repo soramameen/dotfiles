@@ -4,6 +4,23 @@ echo "🚀 Installing dotfiles..."
 
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
 
+confirm() {
+  local prompt="$1"
+  if [ "${DOTFILES_ASSUME_YES}" = "1" ]; then
+    return 0
+  fi
+  read -r -p "$prompt [y/N]: " reply
+  case "$reply" in
+    [yY]|[yY][eE][sS]) return 0 ;;
+    *) return 1 ;;
+  esac
+}
+
+if ! confirm "Proceed with linking dotfiles to your home directory?"; then
+  echo "❌ Aborted."
+  exit 1
+fi
+
 # バックアップディレクトリ作成
 BACKUP_DIR="$HOME/dotfiles_backup_$(date +%Y%m%d_%H%M%S)"
 mkdir -p "$BACKUP_DIR"

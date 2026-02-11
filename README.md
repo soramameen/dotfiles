@@ -4,7 +4,7 @@ macOS / Linux 向けの dotfiles。
 
 ## セットアップ
 ```bash
-git clone https://github.com/YOUR_USERNAME/dotfiles.git ~/dotfiles
+git clone https://github.com/soramameen/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 ./bootstrap.sh
 ```

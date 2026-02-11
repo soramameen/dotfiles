@@ -4,6 +4,18 @@
 
 set -e # エラーで停止
 
+confirm() {
+  local prompt="$1"
+  if [ "${DOTFILES_ASSUME_YES}" = "1" ]; then
+    return 0
+  fi
+  read -r -p "$prompt [y/N]: " reply
+  case "$reply" in
+    [yY]|[yY][eE][sS]) return 0 ;;
+    *) return 1 ;;
+  esac
+}
+
 echo "🚀 Starting dotfiles bootstrap..."
 
 # スクリプトのディレクトリ
@@ -25,23 +37,39 @@ echo "📱 Detected OS: $OS"
 
 # Mac用セットアップ
 if [ "$OS" = "mac" ]; then
-  echo "🍎 Running Mac setup..."
-  bash "$SCRIPT_DIR/setup/mac.sh"
+  if confirm "Run Mac setup (installs packages/apps)?"; then
+    echo "🍎 Running Mac setup..."
+    DOTFILES_ASSUME_YES=1 bash "$SCRIPT_DIR/setup/mac.sh"
+  else
+    echo "⏭️  Skipping Mac setup."
+  fi
 fi
 
 # Linux用セットアップ
 if [ "$OS" = "linux" ]; then
-  echo "🐧 Running Linux setup..."
-  bash "$SCRIPT_DIR/setup/linux.sh"
+  if confirm "Run Linux setup (installs packages)?"; then
+    echo "🐧 Running Linux setup..."
+    DOTFILES_ASSUME_YES=1 bash "$SCRIPT_DIR/setup/linux.sh"
+  else
+    echo "⏭️  Skipping Linux setup."
+  fi
 fi
 
 # 共通セットアップ
-echo "⚙️  Running common setup..."
-bash "$SCRIPT_DIR/setup/common.sh"
+if confirm "Run common setup (shell/git settings)?"; then
+  echo "⚙️  Running common setup..."
+  DOTFILES_ASSUME_YES=1 bash "$SCRIPT_DIR/setup/common.sh"
+else
+  echo "⏭️  Skipping common setup."
+fi
 
 # dotfiles リンク
-echo "🔗 Linking dotfiles..."
-bash "$SCRIPT_DIR/install.sh"
+if confirm "Link dotfiles (backs up and overwrites configs)?"; then
+  echo "🔗 Linking dotfiles..."
+  DOTFILES_ASSUME_YES=1 bash "$SCRIPT_DIR/install.sh"
+else
+  echo "⏭️  Skipping dotfiles linking."
+fi
 
 echo ""
 echo "✅ Bootstrap complete!"

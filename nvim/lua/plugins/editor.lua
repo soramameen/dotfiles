@@ -54,6 +54,19 @@ return {
     },
     config = function()
       require("neo-tree").setup({
+        window = {
+          mappings = {
+            ["P"] = {
+              "toggle_preview",
+              config = {
+                use_float = true,
+                use_snacks_image = false,
+                use_image_nvim = false,
+              },
+            },
+            ["l"] = "focus_preview",
+          },
+        },
         filesystem = {
           filtered_items = {
             visible = true,

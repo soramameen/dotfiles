@@ -48,6 +48,7 @@ return {
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons",
       "MunifTanjim/nui.nvim",
+      "s1n7ax/nvim-window-picker",
     },
     keys = {
       { "<leader>e", ":Neotree toggle left<CR>", desc = "Explorer NeoTree" },
@@ -65,6 +66,7 @@ return {
               },
             },
             ["l"] = "focus_preview",
+            ["w"] = "open_with_window_picker",
           },
         },
         filesystem = {

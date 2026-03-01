@@ -11,9 +11,10 @@ fi
 # ユーザーローカルbin (OS問わず共通で使う)
 export PATH="$HOME/.local/bin:$PATH"
 
-# Ruby (rbenv)
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+## Ruby (rbenv)
+#export PATH="$HOME/.rbenv/bin:$PATH"
+#eval "$(rbenv init -)"
+# miseに移行するためコメントアウト
 
 # Node.js (pnpm)
 export PNPM_HOME="$HOME/Library/pnpm"
@@ -29,48 +30,13 @@ export PATH=$JAVA_HOME/bin:$PATH
 # PostgreSQL
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 
-# Build tools (Compiler path etc)
-export PATH="/opt/homebrew/opt/binutils/bin:$PATH"
-export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
-export LIBRARY_PATH="/opt/homebrew/opt/flex/lib:$LIBRARY_PATH"
-export CPATH="/opt/homebrew/opt/flex/include:$CPATH"
-
-# gemini cli
-export GEMINI_MODEL="gemini-3-flash-preview"
-
-# Python (Conda)
-__conda_setup="$('/opt/homebrew/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
-        . "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh"
-    else
-        export PATH="/opt/homebrew/Caskroom/miniconda/base/bin:$PATH"
-    fi
-fi
-unset __conda_setup
 export PATH="$HOME/.opencode/bin:$PATH"
 
 # ==================== エディタ設定 ====================
 export EDITOR=nvim
 
-# ==================== プロジェクト関数 ====================
-sakumiru_apps_pr() {
-  (cd "$HOME/pro/sakumiru/sakumiru-apps/scripts" && pnpm pr)
-}
-
-sakumiru_admin_pr() {
-  (cd "$HOME/pro/sakumiru/sakumiru-admin/scripts" && pnpm pr)
-}
-
 # ==================== エイリアス ====================
 # Git
-alias g='git'
-alias gs='git status'
-alias gb='git branch'
-alias gc='git checkout'
-alias gc-dev='git checkout develop'
 alias lg='lazygit'
 
 # Docker
@@ -81,10 +47,8 @@ alias ridge='docker compose exec api rails ridgepole:apply\[false\]'
 
 # NeoVim
 alias n='nvim'
-alias oldnvim="NVIM_APPNAME=oldnvim nvim"
 
 # Tools
-alias update='pnpm get-schema && pnpm codegen'
 alias l="eza --group-directories-first -1 -l -F -a -b --icons"
 alias files='yazi'
 alias t='tmux'
@@ -99,43 +63,6 @@ alias tk="tmux kill-session"
 # Web Search
 alias web='open -a "Zen"'
 alias search='web "https://www.google.com/search?q=$1"'
-
-# Shortcuts
-alias obsidian='cd "$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/mydream"'
-alias today='nvim "$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/mydream/毎日振り返り/$(date +%Y-%m-%d).md"'
-alias dced='docker compose exec db mysql -u root -proot worldcup2014'
-
-
-# ==================== カスタム関数 ====================
-# smart cat (scat)
-scat() {
-  local file="$1"
-  local max_size=$((10 * 1024 * 1024))  # 10MB
-  local size
-
-  # OSごとのファイルサイズ取得
-  if [[ "$OSTYPE" == "darwin"* ]]; then
-      size=$(stat -f%z "$file" 2>/dev/null) # Mac
-  else
-      size=$(stat -c%s "$file" 2>/dev/null) # Linux
-  fi
-
-  # ファイルが存在しない、または大きすぎる場合は通常のcat
-  if [[ -z $size ]] || [[ $size -gt $max_size ]]; then
-    command cat "$file"
-    return
-  fi
-
-  case "$file" in
-    *.md) glow "$file" ;;
-    *) bat -pP "$file" ;;
-  esac
-}
-
-# notify (Desktop Notification) - REMOVED (Use ~/bin/notify script instead)
-# notify() { ... }
-
-
 
 # ==================== Auto Notify Config ====================
 export AUTO_NOTIFY_THRESHOLD=10
@@ -209,13 +136,6 @@ if [[ -z "$TMUX" ]]; then
   clear
   fastfetch
 fi
-
-export MAPS_HOME="$HOME/opt/maps-1.5"
-PATH=$PATH:$MAPS_HOME/bin
-export PATH
-
-# Added by Antigravity
-export PATH="/Users/nakajimasoraera/.antigravity/antigravity/bin:$PATH"
 
 export PATH="$HOME/bin:$PATH"
 eval "$(mise activate zsh)"

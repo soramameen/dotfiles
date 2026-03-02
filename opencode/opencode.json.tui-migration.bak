@@ -4,6 +4,9 @@
     "oh-my-opencode@latest",
     "opencode-antigravity-auth@1.6.0"
   ],
+  "keybinds": {
+    "input_newline": "shift+return"
+  },
   "model": "zai-coding-plan/glm-4.7",
   "provider": {
     "google": {

@@ -6,6 +6,7 @@ opt.relativenumber = true -- 相対行番号（好みが分かれますが便利
 
 -- インデント設定 (スペース2つ)
 opt.tabstop = 2
+opt.softtabstop = 2
 opt.shiftwidth = 2
 opt.expandtab = true
 opt.autoindent = true
@@ -16,6 +17,7 @@ opt.clipboard = "unnamedplus"
 -- 検索設定
 opt.ignorecase = true -- 大文字小文字を無視
 opt.smartcase = true -- 大文字が含まれる場合のみ区別
+
 
 -- その他
 opt.cursorline = true -- 現在行をハイライト

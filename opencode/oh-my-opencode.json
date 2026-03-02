@@ -2,69 +2,69 @@
   "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json",
   "agents": {
     "sisyphus": {
-      "model": "zai-coding-plan/glm-4.7",
+      "model": "moonshotai/kimi-k2.5",
       "variant": "high"
+    },
+    "hephaestus": {
+      "model": "github-copilot/gpt-5.2-codex",
+      "variant": "xhigh"
     },
     "oracle": {
-      "model": "zai-coding-plan/glm-4.7",
-      "variant": "high"
+      "model": "github-copilot/gpt-5.2-codex",
+      "variant": "xhigh"
     },
     "librarian": {
-      "model": "zai-coding-plan/glm-4.7"
+      "model": "opencode/minimax-m2.5-free"
     },
     "explore": {
-      "model": "zai-coding-plan/glm-4.7"
+      "model": "opencode/minimax-m2.5-free"
     },
     "multimodal-looker": {
-      "model": "google/gemini-3-flash"
+      "model": "moonshotai/kimi-k2.5",
+      "variant": "high"
+      // ← ここをKimiに変更！画像解析が深い思考モードで来る
     },
     "prometheus": {
-      "model": "zai-coding-plan/glm-4.7",
+      "model": "moonshotai/kimi-k2.5",
       "variant": "high"
     },
     "metis": {
-      "model": "zai-coding-plan/glm-4.7",
-      "variant": "high"
+      "model": "opencode/minimax-m2.5-free"
     },
     "momus": {
-      "model": "zai-coding-plan/glm-4.7",
-      "variant": "high"
+      "model": "opencode/minimax-m2.5-free"
     },
     "atlas": {
-      "model": "zai-coding-plan/glm-4.7",
-      "variant": "high"
+      "model": "opencode/minimax-m2.5-free"
     },
     "assistant": {
-      "model": "zai-coding-plan/glm-4.7",
-      "variant": "medium"
+      "model": "opencode/minimax-m2.5-free"
     }
   },
   "categories": {
     "general-purpose": {
-      "model": "zai-coding-plan/glm-4.7",
-      "description": "日常的なタスク、メール作成、ドキュメントの要約、簡単なスクリプト作成など"
+      "model": "zai-coding-plan/glm-4.7"
     },
     "visual-engineering": {
-      "model": "google/gemini-3-pro"
+      "model": "moonshotai/kimi-k2.5",
+      "variant": "high"
+      // ← ここもKimiに！UI/ビジュアル系タスクが一気に深くなる
     },
     "ultrabrain": {
       "model": "github-copilot/gpt-5.2-codex",
       "variant": "xhigh"
     },
     "artistry": {
-      "model": "google/gemini-3-pro",
-      "variant": "max"
+      "model": "moonshotai/kimi-k2.5"
     },
     "quick": {
-      "model": "zai-coding-plan/glm-4.7-flash"
+      "model": "opencode/minimax-m2.5-free"
     },
     "unspecified-low": {
-      "model": "zai-coding-plan/glm-4.7",
-      "variant": "medium"
+      "model": "opencode/minimax-m2.5-free"
     },
     "unspecified-high": {
-      "model": "zai-coding-plan/glm-4.7",
-      "variant": "high"
+      "model": "moonshotai/kimi-k2.5"
     },
     "writing": {
       "model": "google/gemini-3-flash"

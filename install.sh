@@ -54,6 +54,11 @@ if [ -d "$DOTFILES_DIR/alacritty" ]; then
   backup_and_link "$DOTFILES_DIR/alacritty" "$HOME/.config/alacritty"
 fi
 
+# ghostty
+if [ -d "$DOTFILES_DIR/ghostty" ]; then
+  backup_and_link "$DOTFILES_DIR/ghostty" "$HOME/.config/ghostty"
+fi
+
 # opencode (individual files to preserve private data)
 if [ -d "$DOTFILES_DIR/opencode" ]; then
   # Create .config/opencode if it doesn't exist

@@ -55,7 +55,9 @@ if confirm "Install CLI tools via Homebrew?"; then
     ghq \
     glow \
     tlrc \
-    fastfetch
+    fastfetch \
+    sheldon \
+    mise
 else
   echo "⏭️  Skipping CLI tools install."
 fi
@@ -65,14 +67,39 @@ if confirm "Install GUI apps via Homebrew Cask?"; then
   echo "📦 Installing GUI apps..."
   brew install --cask \
     alacritty \
-    font-jetbrains-mono-nerd-font
+    font-jetbrains-mono-nerd-font \
+    ghostty
 else
   echo "⏭️  Skipping GUI apps install."
 fi
 
-# オプション: 会社のPCで必要に応じてアンコメント
-# echo "📦 Installing optional tools..."
-# brew install git-delta direnv mise nodenv rbenv
-# brew install --cask ghostty visual-studio-code
+# 追加のオプショナルツール（.zshrcのエイリアスで使用）
+if confirm "Install optional tools (lazydocker, yazi, pnpm, openjdk@21, libpq)?"; then
+  echo "📦 Installing optional tools..."
+  
+  if confirm "  Install lazydocker (Docker TUI)?"; then
+    brew install lazydocker
+  fi
+  
+  if confirm "  Install yazi (file manager)?"; then
+    brew install yazi
+  fi
+  
+  if confirm "  Install pnpm (Node.js package manager)?"; then
+    brew install pnpm
+  fi
+  
+  if confirm "  Install openjdk@21 (Java)?"; then
+    brew install openjdk@21
+  fi
+  
+  if confirm "  Install libpq (PostgreSQL client)?"; then
+    brew install libpq
+  fi
+  
+  echo "✅ Optional tools installation complete!"
+else
+  echo "⏭️  Skipping optional tools install."
+fi
 
 echo "✅ Mac setup complete!"
